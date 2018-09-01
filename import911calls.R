@@ -1,0 +1,51 @@
+#library(readr)
+
+get911calls <- function(fpath){
+
+intmp <- read_csv(fpath, trim_ws=TRUE, na = nalist,
+                  col_types = cols(`Apartment Number` = col_skip(), 
+                                   `Call Cleared Date Time` = col_datetime(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Call Date Time` = col_datetime(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Call Dispatch Date Time` = col_datetime(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Call Received Date Time` = col_datetime(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Complainant Apartment` = col_skip(), 
+                                   `Complainant Business Address` = col_skip(), 
+                                   `Complainant Business Name` = col_skip(), 
+                                   `Complainant Home Address` = col_skip(), 
+                                   `Complainant Name` = col_skip(), 
+                                   `Date incident created` = col_datetime(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Date of Report` = col_datetime(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Date1 of Occurrence` = col_date(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Date2 of Occurrence` = col_date(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Offense Entered Time` = col_time(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Responding Officer #1  Name` = col_skip(), 
+                                   `Responding Officer #2 Name` = col_skip(), 
+                                   'Offense Service Number' = col_skip(),
+                                   `Incident Number wo/ Year` = col_skip(),
+                                   `Street Block` = col_skip(),
+                                   `Time1 of Occurrence` = col_time(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Time2 of Occurrence` = col_time(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Update Date` = col_datetime(format = " %m/%d/%Y %H:%M:%S %p "), 
+                                   `Zip Code` = col_character(),
+                                   `Responding Officer #1  Badge No` = col_character(), 
+                                   `Responding Officer #2 Badge No` = col_character(),
+                                   `Reviewing Officer Badge No` = col_character(),
+                                   'Reporting Officer Badge No' = col_character(),
+                                   'Assisting Officer Badge No' = col_character(),
+                                   'Penalty Class' = col_skip(),
+                                   'Street Direction' = col_skip(),
+                                   `Starting  Date/Time` = col_skip(),
+                                   `Ending Date/Time` = col_skip(),
+                                   'Map Date' = col_skip(),
+                                   `DPDSworn/Marshalls involved` = col_skip(),
+                                   `Year Assignment` = col_skip(),
+                                   'Weather' = col_skip(),
+                                   `UCR Disposition` = col_skip(),
+                                   'UCR 1' = col_skip(),
+                                   `UCR 2 (Pre-RMS)` = col_skip(),
+                                   'Final UCR' = col_skip(),
+                                   `Offense Code CC` = col_skip()))
+
+
+ return(intmp)
+}
