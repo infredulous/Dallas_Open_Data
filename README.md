@@ -4,7 +4,7 @@
 </head>
 <body>  
 
-<br>main importing script
+<br>main script, it calls the import scripts and fixes some issues with column names and data type
 <ul>
   <li>importData.R</li>
 </ul>
