@@ -4,7 +4,7 @@
   
 </head>
 <body>  
-  <p>main importing script</p>
+  <br>main importing script
   <br>importData.R
   
 <br>these are the import scripts
