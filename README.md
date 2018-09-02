@@ -1,8 +1,13 @@
-# Dallas_Open_Data
-
-importData.R main importing script
-
-<p>these are the import scripts
+<!DOCTYPE html>
+<html>
+<head>
+  
+</head>
+<body>  
+main importing script
+  <p  style="margin-left: 40px">importData.R</p>
+  
+<br>these are the import scripts
   <ul>
     <li> importIncidents.R </li>
     <li> importRTR.R </li>
@@ -10,3 +15,7 @@ importData.R main importing script
   <li> importPersons.R </li> 
   <li> import911Calls.R </li> 
   </ul>
+  
+  
+</body>
+</html>
