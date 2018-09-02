@@ -3,8 +3,10 @@
 importData.R main importing script
 
 <p>these are the import scripts
-<p> importIncidents.R
-<p> importRTR.R
-<p> importMO.R
-<p> importPersons.R
-<p> import911Calls.R
+  <ul>
+    <li> importIncidents.R </li>
+    <li> importRTR.R </li>
+  <li> importMO.R </li> 
+  <li> importPersons.R </li> 
+  <li> import911Calls.R </li> 
+  </ul>
