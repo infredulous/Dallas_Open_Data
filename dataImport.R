@@ -66,7 +66,7 @@ factorize <- function(tmptmp){
 #911Calls
 {
 # Coordinates are in a different format and present in the data as separate values
-calls911 <- get911calls("Data/911_Calls_-_Burglary.csv")
+calls911 <- get911calls("Datav1/911_Calls_-_Burglary.csv")
 calls911 <- factorize(calls911)
 print('saving 911calls')
 saveRDS(calls911,"datav2/911Callsv2.rds")
@@ -76,7 +76,7 @@ saveRDS(calls911,"datav2/911Callsv2.rds")
 {
 #for some reason the dates and times don't have whitespace as in previous data sets,
 #and OCCURRED_T can have "NULL" as a value so converting it to NA
-rtr <- getRTR("Data/Police_Response_to_Resistance_-_2016.csv")
+rtr <- getRTR("Datav1/Police_Response_to_Resistance_-_2016.csv")
 rtr <- factorize(rtr)
 tcoords <- getcoords(rtr$GeoLocation)
 rtr <- mutate(rtr,xcoord=tcoords$xcord,ycoord=tcoords$ycord)
@@ -87,7 +87,7 @@ saveRDS(rtr,"datav2/RTRv2.rds")
 #Persons
 {
 # there is no location data or factored data
-persons <- getPersons("Data/Police_Person.csv")
+persons <- getPersons("Datav1/Police_Person.csv")
 persons <- factorize(persons)
 print('saving persons..')
 saveRDS(persons,"datav2/personsv2.rds")
@@ -96,7 +96,7 @@ saveRDS(persons,"datav2/personsv2.rds")
 #MO
 {
 #no coordinates present
-mo <- getMO("Data/Police_MO.csv")
+mo <- getMO("Datav1/Police_MO.csv")
 mo <- factorize(mo)
 print('saving MO..')
 saveRDS(mo, "datav2/MOv2.rds")
@@ -107,7 +107,7 @@ saveRDS(mo, "datav2/MOv2.rds")
 #some of the Year Fields have values that are most likely inncorrect,
 #I'm leaving them because I don't think they have a large influence
 #I'm skipping the name, address and phone numbers for privacy reasons
-incid <- getIncidents("Data/Police_Incidents.csv")
+incid <- getIncidents("Datav1/Police_Incidents.csv")
 incid <- factorize(incid)
 tcoords <- getcoords(incid$Location1)
 incid <- mutate(incid,xcoord=tcoords$xcord,ycoord=tcoords$ycord)
