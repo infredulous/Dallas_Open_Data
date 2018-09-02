@@ -4,8 +4,8 @@
   
 </head>
 <body>  
-main importing script
-  <p  style="margin-left: 40px">importData.R</p>
+  <p>main importing script</p>
+  <br>importData.R
   
 <br>these are the import scripts
   <ul>
