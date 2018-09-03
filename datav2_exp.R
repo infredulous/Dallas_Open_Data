@@ -10,24 +10,20 @@ View(incid <- read_rds('Datav2/incidentsv2.rds'))
 
 
 clean_col_names <- function(incols){
-  #print(incols)
-  #Istevencident 
-  #outcols <- list()  
+ outcols <- c()
   for (n in incols){
-    #t <- unlist(strsplit(n,' '))
-    #t <- paste(t,sep = "",collapse = '.')
     t <- gsub("  ",".",n)
     t <- gsub(" ",".",t)
     t <- gsub(".w/year","",t)
     t <- gsub("[#()/]","",t)
     t <- gsub("Istevencident","Incident",t)
-    if (length(outcols)==0) outcols <- t
-     else outcols <- outcols + t
+
+    outcols <- append(outcols,t)
     # print(t)
   }
   return(outcols)
 }
-clean_col_names(colnames(incid))
+colnames(incid) <- clean_col_names(colnames(incid))
 
 
 

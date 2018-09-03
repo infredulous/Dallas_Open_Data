@@ -64,20 +64,15 @@ factorize <- function(tmptmp){
 }
 
 clean_col_names <- function(incols){
-  #print(incols)
-  #Istevencident 
-  outcols <- c()  
+  outcols <- c()
   for (n in incols){
-    #t <- unlist(strsplit(n,' '))
-    #t <- paste(t,sep = "",collapse = '.')
     t <- gsub("  ",".",n)
     t <- gsub(" ",".",t)
     t <- gsub(".w/year","",t)
     t <- gsub("[#()/]","",t)
     t <- gsub("Istevencident","Incident",t)
-    if (length(outcols)==0) outcols <- t
-    else append(outcols,t)
-    # print(t)
+    
+    outcols <- append(outcols,t)
   }
   return(outcols)
 }
@@ -88,6 +83,7 @@ clean_col_names <- function(incols){
 calls911 <- get911calls("Datav1/911_Calls_-_Burglary.csv")
 calls911 <- factorize(calls911)
 print('saving 911calls')
+colnames(calls911) <- clean_col_names(calls911)
 saveRDS(calls911,"datav2/911Callsv2.rds")
 }
 
