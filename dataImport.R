@@ -63,6 +63,25 @@ factorize <- function(tmptmp){
   return(tmptmp)
 }
 
+clean_col_names <- function(incols){
+  #print(incols)
+  #Istevencident 
+  outcols <- c()  
+  for (n in incols){
+    #t <- unlist(strsplit(n,' '))
+    #t <- paste(t,sep = "",collapse = '.')
+    t <- gsub("  ",".",n)
+    t <- gsub(" ",".",t)
+    t <- gsub(".w/year","",t)
+    t <- gsub("[#()/]","",t)
+    t <- gsub("Istevencident","Incident",t)
+    if (length(outcols)==0) outcols <- t
+    else append(outcols,t)
+    # print(t)
+  }
+  return(outcols)
+}
+
 #911Calls
 {
 # Coordinates are in a different format and present in the data as separate values
