@@ -11,16 +11,19 @@ View(incid <- read_rds('Datav2/incidentsv2.rds'))
 
 clean_col_names <- function(incols){
  #print(incols)
- #Istevencident  
+ #Istevencident 
+ outcols <- tibble()  
  for (n in incols){
-   #n <- str_replace_all(n," ", '.')
-   #n <- str_replace_all(n,"#", '.')
-   split(n,' ')
-   print(n)
+   t <- unlist(strsplit(n,' '))
+   
+   t <- paste(t,sep = "",collapse = '.')
+
+   print(t)
  }
-  #return(incols)
+  #return(outcols)
 }
 clean_col_names(colnames(incid))
+
 
 
 incid %>% data.frame() %>% select(Year.of.Incident) %>% 
