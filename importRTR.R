@@ -1,7 +1,7 @@
 #library(readr)
 
 getRTR <- function(fpath){
-
+print('importing Response_to_Resistance...') 
 intmp <- read_csv(fpath,
                   trim_ws=TRUE,na=nalist,
                   col_types = cols(HIRE_DT = col_date(format = "%m/%d/%Y"), 

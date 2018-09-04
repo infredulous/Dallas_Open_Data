@@ -2,29 +2,20 @@ library(tidyverse)
 library(lubridate)
 #merge()
 
-View(rtr <- read_rds('Datav2/RTRv2.rds'))
-View(calls <- read_rds('Datav2/911CAllsv2.rds'))
-View(persons <- read_rds('Datav2/personsv2.rds'))
-View(mo <- read_rds('Datav2/MOv2.rds'))
-View(incid <- read_rds('Datav2/incidentsv2.rds'))
+rtr <- read_rds('Datav2/RTRv2.rds')
+calls <- read_rds('Datav2/CAllsv2.rds')
+persons <- read_rds('Datav2/personsv2.rds')
+mo <- read_rds('Datav2/MOv2.rds')
+incid <- read_rds('Datav2/incidentsv2.rds')
 
 
-clean_col_names <- function(incols){
- outcols <- c()
-  for (n in incols){
-    t <- gsub("  ",".",n)
-    t <- gsub(" ",".",t)
-    t <- gsub(".w/year","",t)
-    t <- gsub("[#()/]","",t)
-    t <- gsub("Istevencident","Incident",t)
 
-    outcols <- append(outcols,t)
-    # print(t)
-  }
-  return(outcols)
-}
+
+colnames(calls) <- clean_col_names(colnames(calls))
 colnames(incid) <- clean_col_names(colnames(incid))
-
+colnames(mo) <- clean_col_names(colnames(mo))
+colnames(persons) <- clean_col_names(colnames(persons))
+colnames(rtr) <- clean_col_names(colnames(rtr))
 
 
 incid %>% data.frame() %>% select(Year.of.Incident) %>% 

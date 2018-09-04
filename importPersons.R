@@ -1,7 +1,7 @@
 #library(readr)
 
 getPersons <- function(fpath){
-
+  print('importing Persons...') 
 intmp <- read_csv(fpath, trim_ws=TRUE, na = nalist, 
                   col_types = cols(Address = col_skip(), 
                                    AptNum = col_skip(), DRLicNum = col_skip(), 

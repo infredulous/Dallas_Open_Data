@@ -1,7 +1,7 @@
 #library(readr)
 
 getIncidents <- function(fpath){
-
+print('importing incidents...')
 intmp <- read_csv(fpath, trim_ws=TRUE, na = nalist,
                   col_types = cols(`Apartment Number` = col_skip(), 
                                    `Call Cleared Date Time` = col_datetime(format = " %m/%d/%Y %H:%M:%S %p "), 

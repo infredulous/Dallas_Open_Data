@@ -63,16 +63,24 @@ factorize <- function(tmptmp){
   return(tmptmp)
 }
 
+
 clean_col_names <- function(incols){
+  print('correcting column names..')
   outcols <- c()
   for (n in incols){
     t <- gsub("  ",".",n)
     t <- gsub(" ",".",t)
     t <- gsub(".w/year","",t)
+    t <- gsub(".w/.Year","",t)    
     t <- gsub("[#()/]","",t)
     t <- gsub("Istevencident","Incident",t)
+    t <- gsub("Occurence","Occurrence",t)
+
+    t <- gsub("IncidentNum","Incident.Number",t)
+    t <- gsub("UpzDate","UpDate",t)
     
     outcols <- append(outcols,t)
+    # print(t)
   }
   return(outcols)
 }
@@ -80,11 +88,11 @@ clean_col_names <- function(incols){
 #911Calls
 {
 # Coordinates are in a different format and present in the data as separate values
-calls911 <- get911calls("Datav1/911_Calls_-_Burglary.csv")
-calls911 <- factorize(calls911)
-print('saving 911calls')
-colnames(calls911) <- clean_col_names(calls911)
-saveRDS(calls911,"datav2/911Callsv2.rds")
+calls <- get911calls("Datav1/911_Calls_-_Burglary.csv")
+calls <- factorize(calls)
+colnames(calls) <- clean_col_names(colnames(calls))
+print('saving calls')
+saveRDS(calls,"datav2/Callsv2.rds")
 }
 
 #RTR Response to Resistance
@@ -95,6 +103,7 @@ rtr <- getRTR("Datav1/Police_Response_to_Resistance_-_2016.csv")
 rtr <- factorize(rtr)
 tcoords <- getcoords(rtr$GeoLocation)
 rtr <- mutate(rtr,xcoord=tcoords$xcord,ycoord=tcoords$ycord)
+colnames(rtr) <- clean_col_names(colnames(rtr))
 print('saving RTR..')
 saveRDS(rtr,"datav2/RTRv2.rds")
 }
@@ -104,6 +113,7 @@ saveRDS(rtr,"datav2/RTRv2.rds")
 # there is no location data or factored data
 persons <- getPersons("Datav1/Police_Person.csv")
 persons <- factorize(persons)
+colnames(persons) <- clean_col_names(colnames(persons))
 print('saving persons..')
 saveRDS(persons,"datav2/personsv2.rds")
 }
@@ -113,6 +123,7 @@ saveRDS(persons,"datav2/personsv2.rds")
 #no coordinates present
 mo <- getMO("Datav1/Police_MO.csv")
 mo <- factorize(mo)
+colnames(mo) <- clean_col_names(colnames(mo))
 print('saving MO..')
 saveRDS(mo, "datav2/MOv2.rds")
 }
@@ -127,6 +138,7 @@ incid <- factorize(incid)
 tcoords <- getcoords(incid$Location1)
 incid <- mutate(incid,xcoord=tcoords$xcord,ycoord=tcoords$ycord)
 incid <- incid %>% mutate(calcMonth=month(.$'Date1 of Occurrence',label = FALSE))
+colnames(incid) <- clean_col_names(colnames(incid))
 print('saving incidents..')
 saveRDS(incid,"datav2/Incidentsv2.rds")
 }
