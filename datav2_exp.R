@@ -13,14 +13,14 @@ wi <- select(incid,Incident.Number,Year.of.Incident,Year1.of.Occurrence,Month1.o
              Call.Date.Time,Call.Cleared.Date.Time,Call.Dispatch.Date.Time,Victim.Race,Victim.Ethnicity,
              Victim.Gender,Victim.Age,Victim.Age.at.Offense,Victim.Zip.Code,Responding.Officer.1.Badge.No,
              Responding.Officer.2.Badge.No,X.Coordinate,Y.Cordinate,Zip.Code,xcoord,ycoord,calcMonth)
-head(wi)
 
-wt <- wi %>% select(Responding.Officer.1.Badge.No) %>% filter(is.na(Responding.Officer.1.Badge.No)==FALSE)# %>% 
-    group_by(Responding.Officer.1.Badge.No) %>% mutate(n=n()) %>% distinct() %>%
-    arrange(-n)
-wt <- arrange(wt)
-wt <- top_n(wt,10) 
-wt %>% ggplot(aes(x=Responding.Officer.1.Badge.No)) + geom_bar()
+
+wg <- wi %>% select(Responding.Officer.1.Badge.No) %>% filter(is.na(Responding.Officer.1.Badge.No)==FALSE) %>% 
+    group_by(Responding.Officer.1.Badge.No) %>% mutate(nc=n()) %>% distinct() %>%
+    arrange(-nc)
+w10 <- wg[1:5,]
+
+w10 %>% ggplot(aes(x=Responding.Officer.1.Badge.No,y=nc)) + geom_col()
 
 
 wc <- wi %>% arrange(xcoord,ycoord)
