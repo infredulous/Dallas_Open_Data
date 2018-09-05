@@ -1,51 +1,28 @@
 library(tidyverse)
 library(lubridate)
-#merge()
+library(ggplot2)
 
-rtr <- read_rds('Datav2/RTRv2.rds')
-calls <- read_rds('Datav2/CAllsv2.rds')
-persons <- read_rds('Datav2/personsv2.rds')
-mo <- read_rds('Datav2/MOv2.rds')
+#rtr <- read_rds('Datav2/RTRv2.rds')
+#calls <- read_rds('Datav2/CAllsv2.rds')
+#persons <- read_rds('Datav2/personsv2.rds')
+#mo <- read_rds('Datav2/MOv2.rds')
 incid <- read_rds('Datav2/incidentsv2.rds')
 
+wi <- select(incid,Incident.Number,Year.of.Incident,Year1.of.Occurrence,Month1.of.Occurrence,
+             Day1.of.the.Week,Time1.of.Occurrence,Day1.of.the.Year,Call.Received.Date.Time,
+             Call.Date.Time,Call.Cleared.Date.Time,Call.Dispatch.Date.Time,Victim.Race,Victim.Ethnicity,
+             Victim.Gender,Victim.Age,Victim.Age.at.Offense,Victim.Zip.Code,Responding.Officer.1.Badge.No,
+             Responding.Officer.2.Badge.No,X.Coordinate,Y.Cordinate,Zip.Code,xcoord,ycoord,calcMonth)
+head(wi)
+
+wt <- wi %>% select(Responding.Officer.1.Badge.No) %>% filter(is.na(Responding.Officer.1.Badge.No)==FALSE)# %>% 
+    group_by(Responding.Officer.1.Badge.No) %>% mutate(n=n()) %>% distinct() %>%
+    arrange(-n)
+wt <- arrange(wt)
+wt <- top_n(wt,10) 
+wt %>% ggplot(aes(x=Responding.Officer.1.Badge.No)) + geom_bar()
 
 
-
-colnames(calls) <- clean_col_names(colnames(calls))
-colnames(incid) <- clean_col_names(colnames(incid))
-colnames(mo) <- clean_col_names(colnames(mo))
-colnames(persons) <- clean_col_names(colnames(persons))
-colnames(rtr) <- clean_col_names(colnames(rtr))
-
-
-incid  %>% select(Year.of.Incident) %>% 
-  filter(Year.of.Incident < 2019 & Year.of.Incident > 2013) %>%
-  ggplot(aes(Year.of.Incident)) + geom_bar()
-
-incid  %>% select(Day1.of.the.Year) %>% 
-  ggplot(aes(Day1.of.the.Year)) + geom_bar()
-
-incid  %>% select(Day1.of.the.Year,Year.of.Incident) %>% 
-  filter(Year.of.Incident > 2013 & Year.of.Incident < 2018) %>%
-  ggplot(aes(Day1.of.the.Year)) + geom_bar()
-
-incid  %>% select(Day1.of.the.Year,Year.of.Incident) %>% 
-  filter(Year.of.Incident==2014) %>%
-  ggplot(aes(Day1.of.the.Year)) + geom_bar()
-
-incid %>% select(Day1.of.the.Year,Year.of.Incident) %>% 
-  filter(Year.of.Incident==2018) %>%
-  ggplot(aes(Day1.of.the.Year)) + geom_bar()
-
-incid  %>% select(Month1.of.Occurrence,Year.of.Incident,calcMonth) %>% 
-  filter(Year.of.Incident > 2013 & Year.of.Incident < 2018)
-
-incid %>% ggplot(aes(Month1.of.Occurrence)) + geom_bar() +
-  theme(axis.text.x = element_text(angle = 90))
-
-
-incid  %>% select(Responding.Officer.1.Badge.No,Year.of.Incident) %>% 
-  filter(Year.of.Incident > 2016 & Year.of.Incident < 2018) %>%
-  ggplot(aes(Responding.Officer.1.Badge.No)) + geom_bar()
-
-
+wc <- wi %>% arrange(xcoord,ycoord)
+wc <- wc %>% filter(xcoord > 30 & xcoord < 35, ycoord < -95 & ycoord > -100)
+ggplot(wc,aes(x=xcoord,y=ycoord)) + geom_point(na.rm=TRUE)
