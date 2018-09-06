@@ -15,14 +15,26 @@ wi <- select(incid,Incident.Number,Year.of.Incident,Year1.of.Occurrence,Month1.o
              Responding.Officer.2.Badge.No,X.Coordinate,Y.Cordinate,Zip.Code,xcoord,ycoord,calcMonth)
 
 
-wg <- wi %>% select(Responding.Officer.1.Badge.No) %>% filter(is.na(Responding.Officer.1.Badge.No)==FALSE) %>% 
-    group_by(Responding.Officer.1.Badge.No) %>% mutate(nc=n()) %>% distinct() %>%
-    arrange(-nc)
+wg <- wi %>% select(Responding.Officer.1.Badge.No,Year1.of.Occurrence) %>% 
+    filter(is.na(Responding.Officer.1.Badge.No)==FALSE & is.na(Year1.of.Occurrence)==FALSE) %>% 
+    group_by(Responding.Officer.1.Badge.No,Year1.of.Occurrence) %>% mutate(nc=n()) %>% distinct() %>%
+    arrange(-Year1.of.Occurrence,-nc)
+
+idx <- which(wg[[3]] > 150 & wg[[3]]<250)
+w10 <- wg[idx,]
+
+w10 %>% ggplot(aes(x=Responding.Officer.1.Badge.No,y=nc)) + geom_col() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+w10 %>% ggplot(aes(x=Responding.Officer.1.Badge.No,y=nc)) + 
+
+#top 5
+{
 w10 <- wg[1:5,]
-
-w10 %>% ggplot(aes(x=Responding.Officer.1.Badge.No,y=nc)) + geom_col()
-
-
+}
+#map incidents by location coords
+{
 wc <- wi %>% arrange(xcoord,ycoord)
 wc <- wc %>% filter(xcoord > 30 & xcoord < 35, ycoord < -95 & ycoord > -100)
 ggplot(wc,aes(x=xcoord,y=ycoord)) + geom_point(na.rm=TRUE)
+}
