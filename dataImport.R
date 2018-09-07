@@ -32,7 +32,7 @@ nalist <- c("", "NA","N/A","Null","NULL")
 }
 getcoords <- function(fld){
   tts <- str_split_fixed(str_extract(fld,"\\d{2}\\.\\d{1,8}\\, \\-\\d{2}\\.\\d{1,8}"),', ',n=2)
-  llb <- data.frame(xcord=as.numeric(tts[,1]),ycord=as.numeric(tts[,2]))
+  llb <- data.frame(xcord=as.numeric(tts[,2]),ycord=as.numeric(tts[,1]))
   return(llb)
 }
 
