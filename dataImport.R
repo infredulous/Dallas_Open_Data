@@ -78,7 +78,7 @@ clean_col_names <- function(incols){
 
     t <- gsub("IncidentNum","Incident.Number",t)
     t <- gsub("UpzDate","UpDate",t)
-    
+    t <- gsub("Y.Cordinate","Y.Coordinate",t)
     outcols <- append(outcols,t)
     # print(t)
   }
