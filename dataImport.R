@@ -133,12 +133,19 @@ saveRDS(mo, "datav2/MOv2.rds")
 #some of the Year Fields have values that are most likely inncorrect,
 #I'm leaving them because I don't think they have a large influence
 #I'm skipping the name, address and phone numbers for privacy reasons
+#The Date1.of.Occurrence variable contains some irregularities,
+#it appears that the first day of the year was used as a default
+PrimeDate <- 'Call.Dispatch.Date.Time'  #date source for calculated values
+  
 incid <- getIncidents("Datav1/Police_Incidents.csv")
 incid <- factorize(incid)
 tcoords <- getcoords(incid$Location1)
-incid <- mutate(incid,xcoord=tcoords$xcord,ycoord=tcoords$ycord)
-incid <- incid %>% mutate(calcMonth=month(.$'Date1 of Occurrence',label = FALSE))
 colnames(incid) <- clean_col_names(colnames(incid))
+incid <- mutate(incid,xcoord=tcoords$xcord,ycoord=tcoords$ycord)
+incid <- incid %>% mutate(calcMonth=month(.[[PrimeDate]],label = FALSE))
+incid <- incid %>% mutate(calcYear=year(.[[PrimeDate]]))
+incid <- incid %>% mutate(calcDayOfYear=format(.[[PrimeDate]],'%j'))
+
 print('saving incidents..')
 saveRDS(incid,"datav2/Incidentsv2.rds")
 }
